@@ -11,6 +11,9 @@
 		AD4AA1E727E5406800B0D51E /* NetworkingAPIFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD4AA1E627E5406800B0D51E /* NetworkingAPIFunctions.swift */; };
 		AD4AA1EB27E5410500B0D51E /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = AD4AA1EA27E5410500B0D51E /* Alamofire */; };
 		AD4AA1EE27E5428100B0D51E /* NotePrototypeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD4AA1ED27E5428100B0D51E /* NotePrototypeCell.swift */; };
+		AD9A52B127E61EC5000BD372 /* MainEntryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD9A52B027E61EC5000BD372 /* MainEntryViewController.swift */; };
+		ADB22A7627E5E84900375DA2 /* AddNoteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADB22A7527E5E84900375DA2 /* AddNoteViewController.swift */; };
+		ADB22A7927E5FB3700375DA2 /* DataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADB22A7827E5FB3700375DA2 /* DataManager.swift */; };
 		ADE26BB427E2626C00D8ECAC /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADE26BB327E2626C00D8ECAC /* AppDelegate.swift */; };
 		ADE26BB627E2626C00D8ECAC /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADE26BB527E2626C00D8ECAC /* SceneDelegate.swift */; };
 		ADE26BB827E2626C00D8ECAC /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADE26BB727E2626C00D8ECAC /* ViewController.swift */; };
@@ -23,6 +26,9 @@
 		AD326C3927E26AC300B0C4C8 /* MenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuViewController.swift; sourceTree = "<group>"; };
 		AD4AA1E627E5406800B0D51E /* NetworkingAPIFunctions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkingAPIFunctions.swift; sourceTree = "<group>"; };
 		AD4AA1ED27E5428100B0D51E /* NotePrototypeCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotePrototypeCell.swift; sourceTree = "<group>"; };
+		AD9A52B027E61EC5000BD372 /* MainEntryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainEntryViewController.swift; sourceTree = "<group>"; };
+		ADB22A7527E5E84900375DA2 /* AddNoteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddNoteViewController.swift; sourceTree = "<group>"; };
+		ADB22A7827E5FB3700375DA2 /* DataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataManager.swift; sourceTree = "<group>"; };
 		ADE26BB027E2626C00D8ECAC /* MyProductivityApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MyProductivityApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		ADE26BB327E2626C00D8ECAC /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		ADE26BB527E2626C00D8ECAC /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -69,6 +75,9 @@
 				ADE26BB727E2626C00D8ECAC /* ViewController.swift */,
 				AD4AA1ED27E5428100B0D51E /* NotePrototypeCell.swift */,
 				ADE26BB927E2626C00D8ECAC /* Main.storyboard */,
+				AD9A52B027E61EC5000BD372 /* MainEntryViewController.swift */,
+				ADB22A7527E5E84900375DA2 /* AddNoteViewController.swift */,
+				ADB22A7827E5FB3700375DA2 /* DataManager.swift */,
 				AD4AA1E627E5406800B0D51E /* NetworkingAPIFunctions.swift */,
 				AD326C3927E26AC300B0C4C8 /* MenuViewController.swift */,
 				ADE26BBC27E2626E00D8ECAC /* Assets.xcassets */,
@@ -154,9 +163,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				ADB22A7627E5E84900375DA2 /* AddNoteViewController.swift in Sources */,
+				ADB22A7927E5FB3700375DA2 /* DataManager.swift in Sources */,
 				AD4AA1E727E5406800B0D51E /* NetworkingAPIFunctions.swift in Sources */,
 				ADE26BB827E2626C00D8ECAC /* ViewController.swift in Sources */,
 				ADE26BB427E2626C00D8ECAC /* AppDelegate.swift in Sources */,
+				AD9A52B127E61EC5000BD372 /* MainEntryViewController.swift in Sources */,
 				ADE26BB627E2626C00D8ECAC /* SceneDelegate.swift in Sources */,
 				AD4AA1EE27E5428100B0D51E /* NotePrototypeCell.swift in Sources */,
 				AD326C3A27E26AC300B0C4C8 /* MenuViewController.swift in Sources */,
