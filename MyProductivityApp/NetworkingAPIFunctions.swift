@@ -39,7 +39,7 @@ class NetworkingAPIFunctions{
     
     // Adds a note to the server, passing the arguments as headers
     func AddNote(date:String, title:String, note:String){
-        AF.request("http://192.168.86.250:8081/create", method: .post, encoding: URLEncoding.httpBody, headers: ["title":title, "date":date, "note":note]).responseJSON{
+        AF.request("http://192.168.86.250:8081/create", method: .post, encoding: URLEncoding.httpBody, headers: ["title":title, "date":date, "note":note]).responseString{
             responce in
             
             print(responce)
@@ -49,7 +49,7 @@ class NetworkingAPIFunctions{
     
     // Updates a note to the server, passing the arguments as headers
     func updateNote(date:String, title:String, note:String, id:String){
-        AF.request("http://192.168.86.250:8081/update", method:.post, encoding: URLEncoding.httpBody, headers: ["title":title, "date":date, "note":note, "id":id]).responseJSON{
+        AF.request("http://192.168.86.250:8081/update", method:.post, encoding: URLEncoding.httpBody, headers: ["title":title, "date":date, "note":note, "id":id]).responseString{
             responce in
             print(responce)
         }
@@ -57,7 +57,7 @@ class NetworkingAPIFunctions{
     
     // Deletes a note to the server, passing the note id as header
     func deleteNote(id:String){
-        AF.request("http://192.168.86.250:8081/delete", method:.post, encoding: URLEncoding.httpBody, headers: ["id":id]).responseJSON{
+        AF.request("http://192.168.86.250:8081/delete", method:.post, encoding: URLEncoding.httpBody, headers: ["id":id]).responseString{
             responce in
             print(responce)
         }

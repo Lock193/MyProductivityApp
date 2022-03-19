@@ -11,7 +11,6 @@ class ViewController: UIViewController,UITableViewDelegate, UITableViewDataSourc
 
     private var alpha:CGFloat = 0.0
     
-    
     @IBOutlet weak var notesTableView: UITableView!
     var notesArray = [Note]()
     
@@ -23,20 +22,24 @@ class ViewController: UIViewController,UITableViewDelegate, UITableViewDataSourc
     }
     
     override func viewDidAppear(_ animated: Bool) {
-        self.notesTableView.register(UITableViewCell.self, forCellReuseIdentifier: "prototypeCell")
+        //self.notesTableView.register(NotePrototypeCell.self, forCellReuseIdentifier: "prototypeCell")
+        //self.notesTableView.register(UINib(nibName: "prototypeCell", bundle: nil), forCellReuseIdentifier: "prototypeCell")
         NetworkingAPIFunctions.functions.fetchNotes()
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        //self.notesTableView.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
+        DataManager.viewController = self
         alpha = self.mainBackView.alpha
         NetworkingAPIFunctions.functions.delegate = self
         NetworkingAPIFunctions.functions.fetchNotes()
         
         notesTableView.delegate = self
         notesTableView.dataSource = self
-        menuButton.setPreferredSymbolConfiguration(UIImage.SymbolConfiguration(pointSize: 35), forImageIn: .normal)
-        addNoteButton.setPreferredSymbolConfiguration(UIImage.SymbolConfiguration(pointSize: 35), forImageIn: .normal)
+        menuButton.setPreferredSymbolConfiguration(UIImage.SymbolConfiguration(pointSize: 30), forImageIn: .normal)
+        addNoteButton.setPreferredSymbolConfiguration(UIImage.SymbolConfiguration(pointSize: 30), forImageIn: .normal)
+        self.view.layoutIfNeeded()
         // Do any additional setup after loading the view.
         //backViewForExit.isHidden = true
         
@@ -47,7 +50,7 @@ class ViewController: UIViewController,UITableViewDelegate, UITableViewDataSourc
         }
         
         func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-            let cell = tableView.dequeueReusableCell(withIdentifier: "prototypeCell", for: indexPath) as! NotePrototypeCell
+            let cell:NotePrototypeCell = self.notesTableView.dequeueReusableCell(withIdentifier: "prototypeCell", for: indexPath) as! NotePrototypeCell
             
             //customizes cell to set date, note and title
             cell.title.text = notesArray[indexPath.row].title
@@ -66,11 +69,18 @@ class ViewController: UIViewController,UITableViewDelegate, UITableViewDataSourc
                 self.menuViewController = controller
                 self.menuViewController?.delegate = self
             }
+        } else if segue.identifier == "updateSegue" {
+            
+                let vc = segue.destination as!AddNoteViewController
+            vc.note = notesArray[notesTableView.indexPathForSelectedRow!.row]
+            vc.update = true
         }
     }
     func hideMenu() {
         self.hideMenuProc()
     }
+    
+    
     @IBOutlet weak var backViewForExit: UIView!
     
     @IBOutlet weak var menuView: UIView!
@@ -88,17 +98,29 @@ class ViewController: UIViewController,UITableViewDelegate, UITableViewDataSourc
             (status) in
             self.view.bringSubviewToFront(self.mainBackView)
             self.isMenuShown = false
+            self.menuButton.setImage(UIImage(systemName: "folder.circle"), for: UIControl.State.normal)
+            //DataManager.navigationController!.self
             //self.menuButton.isHidden = false
             //self.view.layoutIfNeeded()
         }
     }
     
     private func showMenu(){
+        DataManager.navigationController!.navigationBar.setBackgroundImage(UIImage(), for: .default) //UIImage.init(named: "transparent.png")
+        DataManager.navigationController!.navigationController?.navigationBar.shadowImage = UIImage()
+        DataManager.navigationController!.navigationController?.navigationBar.isTranslucent = true
+        DataManager.navigationController!.navigationController?.view.backgroundColor = .clear
+        let image = UIImage(contentsOfFile: "")
+        self.menuButton.setImage(image, for: UIControl.State.normal)
+        menuButton.setPreferredSymbolConfiguration(UIImage.SymbolConfiguration(pointSize: 30), forImageIn: .normal)
+        //menuButton.contentVerticalAlignment = .fill
+        //menuButton.contentHorizontalAlignment = .fill
+        //menuButton.currentImage?.stretchableImage(withLeftCapWidth: 20, topCapHeight: 20)
         self.view.bringSubviewToFront(menuView)
         //self.menuButton.isHidden = true
         UIView.animate(withDuration: 0.2, animations: {
             self.leadingConstraint.constant = 0
-            self.mainBackView.alpha = 0.5
+            self.mainBackView.alpha = 0.25
             self.view.layoutIfNeeded()
             
         }) {
@@ -111,7 +133,7 @@ class ViewController: UIViewController,UITableViewDelegate, UITableViewDataSourc
             }) {
                 (status) in
                 
-                self.mainBackView.alpha = 0.5
+                self.mainBackView.alpha = 0.25
                 //self.backViewForExit.isHidden = true
                 self.view.bringSubviewToFront(self.backViewForExit)
             }
@@ -160,7 +182,7 @@ class ViewController: UIViewController,UITableViewDelegate, UITableViewDataSourc
                 if (differenceFromBeginPoint>0 && differenceFromBeginPoint<300){
                 self.leadingConstraint.constant = -differenceFromBeginPoint
                     difference = differenceFromBeginPoint
-                    self.mainBackView.alpha = 0.5+(0.5*differenceFromBeginPoint/300)
+                    self.mainBackView.alpha = 0.25+(0.25*differenceFromBeginPoint/300)
                     //print("Moved at ")
                 }
             }
@@ -169,18 +191,13 @@ class ViewController: UIViewController,UITableViewDelegate, UITableViewDataSourc
     
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
         if (isMenuShown){
-            if let touch = touches.first {
-                if (difference>150){
-                    //close the menu
-                    hideMenu()
-                    
-                } else {
-                    //keep the menu open
-                    showMenu()
-                }
-                let location = touch.location(in: backViewForExit)
+            if (difference>150){
+                //close the menu
+                hideMenu()
                 
-                //print("Started at ")
+            } else {
+                //keep the menu open
+                showMenu()
             }
         }
     }
@@ -194,7 +211,7 @@ protocol DataDelegate {
 
 extension ViewController: DataDelegate {
     func updateArray(newArray: String) {
-        
+        print("FUNCTION CALLED")
         do {
             notesArray = try JSONDecoder().decode([Note].self, from: newArray.data(using: .utf8)!)
             print(notesArray)
@@ -203,7 +220,8 @@ extension ViewController: DataDelegate {
             print("Failed to decode JSON!")
             
         }
-        self.notesTableView?.reloadData()
+        DataManager.viewController?.notesTableView.reloadData()
+        DataManager.viewController?.view.layoutIfNeeded()
         
     }
 }
