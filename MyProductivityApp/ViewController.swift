@@ -12,13 +12,13 @@ class ViewController: UIViewController,UITableViewDelegate, UITableViewDataSourc
     private var alpha:CGFloat = 0.0
     
     @IBOutlet weak var notesTableView: UITableView!
-    var notesArray = [Note]()
     
     @IBOutlet weak var addNoteButton: UIButton!
     @IBOutlet weak var menuButton: UIButton!
     
     override func viewWillAppear(_ animated: Bool) {
         NetworkingAPIFunctions.functions.fetchNotes()
+        DataManager.folderClassLabel = self.folderClassLabel
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -46,16 +46,16 @@ class ViewController: UIViewController,UITableViewDelegate, UITableViewDataSourc
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-            return notesArray.count
+        return DataManager.notesArray.count
         }
         
         func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
             let cell:NotePrototypeCell = self.notesTableView.dequeueReusableCell(withIdentifier: "prototypeCell", for: indexPath) as! NotePrototypeCell
             
             //customizes cell to set date, note and title
-            cell.title.text = notesArray[indexPath.row].title
-            cell.note.text = notesArray[indexPath.row].note
-            cell.date.text = notesArray[indexPath.row].date
+            cell.title.text = DataManager.notesArray[indexPath.row].title
+            cell.note.text = DataManager.notesArray[indexPath.row].note
+            cell.date.text = DataManager.notesArray[indexPath.row].date
             
             //cell.textLabel?.text = notesArray[indexPath.row].title
             return cell
@@ -72,7 +72,7 @@ class ViewController: UIViewController,UITableViewDelegate, UITableViewDataSourc
         } else if segue.identifier == "updateSegue" {
             
                 let vc = segue.destination as!AddNoteViewController
-            vc.note = notesArray[notesTableView.indexPathForSelectedRow!.row]
+            vc.note = DataManager.notesArray[notesTableView.indexPathForSelectedRow!.row]
             vc.update = true
         }
     }
@@ -80,7 +80,7 @@ class ViewController: UIViewController,UITableViewDelegate, UITableViewDataSourc
         self.hideMenuProc()
     }
     
-    
+    @IBOutlet weak var folderClassLabel: UILabel!
     @IBOutlet weak var backViewForExit: UIView!
     
     @IBOutlet weak var menuView: UIView!
@@ -99,6 +99,7 @@ class ViewController: UIViewController,UITableViewDelegate, UITableViewDataSourc
             self.view.bringSubviewToFront(self.mainBackView)
             self.isMenuShown = false
             self.menuButton.setImage(UIImage(systemName: "folder.circle"), for: UIControl.State.normal)
+            
             //DataManager.navigationController!.self
             //self.menuButton.isHidden = false
             //self.view.layoutIfNeeded()
@@ -213,13 +214,22 @@ extension ViewController: DataDelegate {
     func updateArray(newArray: String) {
         print("FUNCTION CALLED")
         do {
-            notesArray = try JSONDecoder().decode([Note].self, from: newArray.data(using: .utf8)!)
-            print(notesArray)
+            DataManager.notesArray.removeAll()
+            DataManager.tempArray.removeAll()
+            DataManager.tempArray = try JSONDecoder().decode([Note].self, from: newArray.data(using: .utf8)!)
+            print(DataManager.tempArray)
+            //var note:Note = nil
+            for note in DataManager.tempArray {
+                if Int(note.folder) == DataManager.folderClass {
+                    DataManager.notesArray.append(note)
+                }
+            }
             
         } catch {
             print("Failed to decode JSON!")
             
         }
+        
         DataManager.viewController?.notesTableView.reloadData()
         DataManager.viewController?.view.layoutIfNeeded()
         

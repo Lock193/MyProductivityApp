@@ -44,19 +44,28 @@ class MenuViewController: UIViewController {
     }
     
     @IBAction func doTodayFolderClick(_ sender: Any) {
-        print("button clicked!!")
+        print("class 1")
+        DataManager.folderClass = 1
+        DataManager.folderClassLabel.text = "Do today"
+        NetworkingAPIFunctions.functions.fetchNotes()
         self.delegate!.hideMenu()
     }
     
     @IBAction func doThisWeekFolderClick(_ sender: Any) {
-        print("button clicked!!")
+        print("class 2")
+        DataManager.folderClass = 2
+        DataManager.folderClassLabel.text = "Do this week"
+        NetworkingAPIFunctions.functions.fetchNotes()
         self.delegate!.hideMenu()
         
     }
     
     
     @IBAction func otherTasksFolderClick(_ sender: Any) {
-        print("button clicked!!")
+        print("class 3")
+        DataManager.folderClass = 3
+        DataManager.folderClassLabel.text = "Others"
+        NetworkingAPIFunctions.functions.fetchNotes()
         self.delegate!.hideMenu()
         
     }

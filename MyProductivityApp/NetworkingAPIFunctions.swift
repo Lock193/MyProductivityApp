@@ -14,6 +14,7 @@ struct Note:Decodable {
     var date: String
     var _id: String
     var note: String
+    var folder: String
 }
 
 //MARK: - FUnctions that interact with API
@@ -38,8 +39,8 @@ class NetworkingAPIFunctions{
     }
     
     // Adds a note to the server, passing the arguments as headers
-    func AddNote(date:String, title:String, note:String){
-        AF.request("http://192.168.86.250:8081/create", method: .post, encoding: URLEncoding.httpBody, headers: ["title":title, "date":date, "note":note]).responseString{
+    func AddNote(date:String, title:String, note:String, folder:String){
+        AF.request("http://192.168.86.250:8081/create", method: .post, encoding: URLEncoding.httpBody, headers: ["title":title, "date":date, "note":note, "folder":folder]).responseString{
             responce in
             
             print(responce)
@@ -48,8 +49,8 @@ class NetworkingAPIFunctions{
     }
     
     // Updates a note to the server, passing the arguments as headers
-    func updateNote(date:String, title:String, note:String, id:String){
-        AF.request("http://192.168.86.250:8081/update", method:.post, encoding: URLEncoding.httpBody, headers: ["title":title, "date":date, "note":note, "id":id]).responseString{
+    func updateNote(date:String, title:String, note:String, id:String, folder:String){
+        AF.request("http://192.168.86.250:8081/update", method:.post, encoding: URLEncoding.httpBody, headers: ["title":title, "date":date, "note":note, "id":id, "folder":folder]).responseString{
             responce in
             print(responce)
         }

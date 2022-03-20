@@ -21,6 +21,7 @@ class AddNoteViewController: UIViewController {
     @IBOutlet weak var bodyTextView: UITextView!
     
     
+    
     var note: Note?
         var update = false
     
@@ -42,20 +43,27 @@ class AddNoteViewController: UIViewController {
         
         //if the user is updating, update the note rather than saving
         if update == true {
-            NetworkingAPIFunctions.functions.updateNote(date: date, title: titleTextField.text!, note: bodyTextView.text, id: note!._id)
+            NetworkingAPIFunctions.functions.updateNote(date: date, title: titleTextField.text!, note: bodyTextView.text, id: note!._id, folder: String(DataManager.folderClass))
             //returns the screen back to the main screen
             self.navigationController?.popViewController(animated: true)
         } else if titleTextField.text != "" && bodyTextView.text != "" {
-            NetworkingAPIFunctions.functions.AddNote(date: date, title: titleTextField.text!, note: bodyTextView.text)
+            NetworkingAPIFunctions.functions.AddNote(date: date, title: titleTextField.text!, note: bodyTextView.text, folder: String(DataManager.folderClass))
             
             //returns the screen back to the main screen
             self.navigationController?.popViewController(animated: true)
         }
     }
-        
+    @IBAction func backClicked(_ sender: Any) {
+        self.navigationController?.popViewController(animated: true)
+    }
+    
         // MARK: - LifeCycle Hooks
         override func viewWillAppear(_ animated: Bool) {
             //disables the delete button if the user is adding a note (can't delete something that doesnt exist)
+            
+            
+            /*** If needed Assign Title Here ***/
+            
             if update == false {
                 self.deleteButton.isEnabled = false
                 self.deleteButton.isHidden = true
