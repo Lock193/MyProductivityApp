@@ -10,6 +10,6 @@ var note = new Schema({
 
 })
 
-const Data = mongoose.model("Data", note)
+var Data = mongoose.model("data", note)
 //
 module.exports = Data

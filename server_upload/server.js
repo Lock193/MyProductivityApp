@@ -3,7 +3,8 @@ const express = require('express')
 const mongoose = require('mongoose')
 var app = express()
 var Data = require('./noteSchema')
-
+var Login =require('./loginSchema') 
+var loginSuccessful = true
 
 mongoose.connect("mongodb://localhost/newDB")
 
@@ -11,6 +12,33 @@ mongoose.connection.once("open", () => {
     console.log("Connected to DB!")
 }).on("error", (error) => {
     console.log("Failed to connect " + error)
+})
+
+//POST request
+//Login
+app.post("/login", (req,res) => {
+    //console.log("id:" + req.get("id"))
+    Login.findOne({
+        username: req.get("username"),
+        password: req.get("password")
+    }, function (err, obj) {
+        if (err || obj==null){
+            res.send("Failed")
+        }
+        else{
+            res.send("OK")
+        }
+    });
+    /*Login.findOne({
+        username: req.get("username"),
+        password: req.get("password")
+    }, (err) => {
+        console.log("Failed " + err)
+        loginSuccessful=false
+    })
+    if (loginSuccessful) res.send("OK")
+    else res.send("Failed")*/
+    
 })
 
 //CREATE A NOTE
@@ -47,9 +75,14 @@ var server = app.listen(8081, "192.168.86.250", () => {
 
 //FETCH ALL NOTES
 //GET request
-app.get('/fetch', (req,res) => {
-    Data.find({}).then((DBitems) => {
-        res.send(DBitems)
+app.post("/fetch", (req,res) => {
+    Data.find({}, function (err, obj) {
+        if (err || obj==null){
+            res.send("Failed")
+        }
+        else{
+            res.send(obj)
+        }
     })
 })
 
