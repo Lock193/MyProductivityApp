@@ -8,18 +8,27 @@
 import UIKit
 
 class ViewController: UIViewController,UITableViewDelegate, UITableViewDataSource, MenuViewControllerDelegate {
-
+    
+    //MARK: - Variables declaration
+    //UI custom menu variables
     private var alpha:CGFloat = 0.0
-    
+    private var beginPoint:CGFloat = 0.0
+    private var difference:CGFloat = 0.0
+    //UI variables
     @IBOutlet weak var notesTableView: UITableView!
-    
     @IBOutlet weak var addNoteButton: UIButton!
     @IBOutlet weak var menuButton: UIButton!
+    @IBOutlet weak var leadingConstraint: NSLayoutConstraint!
+    @IBOutlet weak var folderClassLabel: UILabel!
+    @IBOutlet weak var backViewForExit: UIView!
+    @IBOutlet weak var menuView: UIView!
+    @IBOutlet weak var mainBackView: UIView!
+    //Custom variables
+    private var isMenuShown:Bool = false
+    var menuViewController:MenuViewController?
     
-    public func loginRequired(){
-        DataManager.viewController!.present(DataManager.loginController!, animated: true, completion: nil)
-    }
     
+    //MARK: - View functions
     override func viewWillAppear(_ animated: Bool) {
         if DataManager.loginController == nil {
             let story = UIStoryboard(name: "Main", bundle: nil)
@@ -28,14 +37,14 @@ class ViewController: UIViewController,UITableViewDelegate, UITableViewDataSourc
             DataManager.loginController = controller
             self.present(controller, animated: true, completion: nil)
         }
-        NetworkingAPIFunctions.functions.fetchNotes()
+        //NetworkingAPIFunctions.functions.fetchNotes()
         DataManager.folderClassLabel = self.folderClassLabel
     }
     
     override func viewDidAppear(_ animated: Bool) {
         //self.notesTableView.register(NotePrototypeCell.self, forCellReuseIdentifier: "prototypeCell")
         //self.notesTableView.register(UINib(nibName: "prototypeCell", bundle: nil), forCellReuseIdentifier: "prototypeCell")
-        NetworkingAPIFunctions.functions.fetchNotes()
+        //NetworkingAPIFunctions.functions.fetchNotes()
     }
     
     override func viewDidLoad() {
@@ -44,7 +53,7 @@ class ViewController: UIViewController,UITableViewDelegate, UITableViewDataSourc
         DataManager.viewController = self
         alpha = self.mainBackView.alpha
         NetworkingAPIFunctions.functions.delegate = self
-        NetworkingAPIFunctions.functions.fetchNotes()
+        //NetworkingAPIFunctions.functions.fetchNotes()
         
         notesTableView.delegate = self
         notesTableView.dataSource = self
@@ -56,24 +65,6 @@ class ViewController: UIViewController,UITableViewDelegate, UITableViewDataSourc
         
     }
     
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return DataManager.notesArray.count
-        }
-        
-        func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-            let cell:NotePrototypeCell = self.notesTableView.dequeueReusableCell(withIdentifier: "prototypeCell", for: indexPath) as! NotePrototypeCell
-            
-            //customizes cell to set date, note and title
-            cell.title.text = DataManager.notesArray[indexPath.row].title
-            cell.note.text = DataManager.notesArray[indexPath.row].note
-            cell.date.text = DataManager.notesArray[indexPath.row].date
-            
-            //cell.textLabel?.text = notesArray[indexPath.row].title
-            return cell
-        }
-    
-    var menuViewController:MenuViewController?
-    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if (segue.identifier == "menuSegue"){
             if let controller = segue.destination as? MenuViewController {
@@ -82,22 +73,42 @@ class ViewController: UIViewController,UITableViewDelegate, UITableViewDataSourc
             }
         } else if segue.identifier == "updateSegue" {
             
-                let vc = segue.destination as!AddNoteViewController
+            let vc = segue.destination as!AddNoteViewController
             vc.note = DataManager.notesArray[notesTableView.indexPathForSelectedRow!.row]
             vc.update = true
         }
     }
+    
+    
+    //Prompt login view if unauthorized or clicked logout
+    public func loginRequired(){
+        DataManager.viewController!.present(DataManager.loginController!, animated: true, completion: nil)
+    }
+    
+    //MARK: - Tableview functions
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return DataManager.notesArray.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell:NotePrototypeCell = self.notesTableView.dequeueReusableCell(withIdentifier: "prototypeCell", for: indexPath) as! NotePrototypeCell
+        
+        //customizes cell to set date, note and title
+        cell.title.text = DataManager.notesArray[indexPath.row].title
+        cell.note.text = DataManager.notesArray[indexPath.row].note
+        cell.date.text = DataManager.notesArray[indexPath.row].date
+        
+        //cell.textLabel?.text = notesArray[indexPath.row].title
+        return cell
+    }
+    
+    
+    
+    
+    //MARK: - Hide/show menu functions
     func hideMenu() {
         self.hideMenuProc()
     }
-    
-    @IBOutlet weak var folderClassLabel: UILabel!
-    @IBOutlet weak var backViewForExit: UIView!
-    
-    @IBOutlet weak var menuView: UIView!
-    
-    
-    @IBOutlet weak var mainBackView: UIView!
     
     private func hideMenuProc(){
         UIView.animate(withDuration: 0.2, animations: {
@@ -115,6 +126,20 @@ class ViewController: UIViewController,UITableViewDelegate, UITableViewDataSourc
             //self.menuButton.isHidden = false
             //self.view.layoutIfNeeded()
         }
+    }
+    
+    //If tapped on area outside of menu, hide
+    @IBAction func tappedOnBackView(_ sender: Any) {
+        //print("Tapped on exit!!")
+        if self.isMenuShown == true {
+            self.hideMenuProc()
+            
+        }
+    }
+    
+    
+    @IBAction func menuButtonClicked(_ sender: Any) {
+        self.showMenu()
     }
     
     private func showMenu(){
@@ -152,27 +177,7 @@ class ViewController: UIViewController,UITableViewDelegate, UITableViewDataSourc
         }
     }
     
-    
-    @IBAction func tappedOnBackView(_ sender: Any) {
-        print("Tapped on exit!!")
-        if self.isMenuShown == true {
-            self.hideMenuProc()
-            
-        }
-    }
-    
-    @IBOutlet weak var leadingConstraint: NSLayoutConstraint!
-    
-    private var isMenuShown:Bool = false
-    
-    @IBAction func menuButtonClicked(_ sender: Any) {
-        self.showMenu()
-        
-    }
-    
-    private var beginPoint:CGFloat = 0.0
-    private var difference:CGFloat = 0.0
-    
+    //MARK: - Dragging menu functions
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         if (isMenuShown){
             if let touch = touches.first {
@@ -192,7 +197,7 @@ class ViewController: UIViewController,UITableViewDelegate, UITableViewDataSourc
                 let differenceFromBeginPoint = beginPoint - location.x
                 
                 if (differenceFromBeginPoint>0 && differenceFromBeginPoint<300){
-                self.leadingConstraint.constant = -differenceFromBeginPoint
+                    self.leadingConstraint.constant = -differenceFromBeginPoint
                     difference = differenceFromBeginPoint
                     self.mainBackView.alpha = 0.25+(0.25*differenceFromBeginPoint/300)
                     //print("Moved at ")

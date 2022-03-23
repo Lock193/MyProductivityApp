@@ -25,16 +25,23 @@ class NetworkingAPIFunctions{
     //Creates an instance of the class so the other files can interact with it
     static let functions = NetworkingAPIFunctions()
     
-    // Fetches notes from database
+    // Login request database
     func login(username:String, password:String) {
         AF.request("http://192.168.86.250:8081/login", method: .post, encoding: URLEncoding.httpBody, headers: ["username":username, "password":password]).responseString{
             responce in
-            let data = String(data: responce.data!, encoding: .utf8)
-            if data=="OK" {
-                LoginController.passwordCorrect()
+            var data = ""
+            if responce.data == nil {
+                LoginController.serverUnavailable()
             } else {
-                LoginController.passwordIncorrect()
+                data = String(data: responce.data!, encoding: .utf8)!
+                if data=="OK" {
+                    LoginController.passwordCorrect()
+                } else {
+                    LoginController.passwordIncorrect()
+                }
+            
             }
+                
         }
         
     }
