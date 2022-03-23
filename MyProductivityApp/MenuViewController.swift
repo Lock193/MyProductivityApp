@@ -72,6 +72,7 @@ class MenuViewController: UIViewController {
     
     @IBAction func logoutClick(_ sender: Any) {
         self.delegate!.hideMenu()
+        DataManager.viewController!.loginRequired()
         
     }
 

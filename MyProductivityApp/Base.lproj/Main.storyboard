@@ -9,10 +9,10 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Main Entry View Controller-->
+        <!--Main-->
         <scene sceneID="c7z-XA-SFs">
             <objects>
-                <navigationController id="isv-kN-RQl" customClass="MainEntryViewController" customModule="MyProductivityApp" customModuleProvider="target" sceneMemberID="viewController">
+                <navigationController id="isv-kN-RQl" userLabel="Main" customClass="MainEntryViewController" customModule="MyProductivityApp" customModuleProvider="target" sceneMemberID="viewController">
                     <navigationItem key="navigationItem" id="bMV-0J-vSR">
                         <barButtonItem key="backBarButtonItem" image="chevron.left" catalog="system" id="QJ4-0h-Yrx">
                             <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -436,6 +436,105 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="k2y-8U-mLu" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1022" y="134"/>
+        </scene>
+        <!--LoginController-->
+        <scene sceneID="d8A-HE-IOu">
+            <objects>
+                <viewController restorationIdentifier="LoginController" storyboardIdentifier="LoginController" id="QWn-sO-axK" userLabel="LoginController" customClass="LoginController" customModule="MyProductivityApp" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="dWd-tx-gLS">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Welcome back" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ACw-k2-mtv" userLabel="welcome">
+                                <rect key="frame" x="25" y="104" width="364" height="54"/>
+                                <accessibility key="accessibilityConfiguration" identifier="welcome" label="welcome">
+                                    <bool key="isElement" value="NO"/>
+                                </accessibility>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="45"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <textField opaque="NO" contentMode="scaleToFill" restorationIdentifier="username" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Enter username" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="6p8-x5-o2Z" userLabel="username">
+                                <rect key="frame" x="25" y="218" width="364" height="34"/>
+                                <accessibility key="accessibilityConfiguration" identifier="username" label="username">
+                                    <bool key="isElement" value="NO"/>
+                                </accessibility>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <textField opaque="NO" contentMode="scaleToFill" restorationIdentifier="Title Text Field" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Enter password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="e4x-24-Mda" userLabel="password">
+                                <rect key="frame" x="25" y="277" width="364" height="34"/>
+                                <accessibility key="accessibilityConfiguration" identifier="password" label="password">
+                                    <bool key="isElement" value="NO"/>
+                                </accessibility>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="W5v-UK-7Dt" userLabel="loginButton">
+                                <rect key="frame" x="25" y="361" width="364" height="60"/>
+                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <accessibility key="accessibilityConfiguration" identifier="loginButton" label="loginButton">
+                                    <bool key="isElement" value="NO"/>
+                                </accessibility>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="40"/>
+                                <state key="normal" title="Login">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <connections>
+                                    <action selector="loginButtonClicked:" destination="QWn-sO-axK" eventType="touchUpInside" id="8W9-pK-pWr"/>
+                                </connections>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Productivity App, 2022" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="21z-Ud-pxL" userLabel="prod_app">
+                                <rect key="frame" x="25" y="782" width="364" height="30"/>
+                                <accessibility key="accessibilityConfiguration" identifier="prod_app" label="prod_app">
+                                    <bool key="isElement" value="NO"/>
+                                </accessibility>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="25"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Wrong username or password, please try again" lineBreakMode="wordWrap" numberOfLines="3" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RSQ-Ek-ezb" userLabel="passwordInvalidLabel">
+                                <rect key="frame" x="25" y="471" width="364" height="150"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="150" id="kTH-Ty-4av"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="25"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="bGD-FU-O7h"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="bGD-FU-O7h" firstAttribute="bottom" secondItem="21z-Ud-pxL" secondAttribute="bottom" constant="50" id="1bB-sr-aEF"/>
+                            <constraint firstItem="bGD-FU-O7h" firstAttribute="trailing" secondItem="21z-Ud-pxL" secondAttribute="trailing" constant="25" id="2GQ-PA-EEz"/>
+                            <constraint firstItem="6p8-x5-o2Z" firstAttribute="leading" secondItem="bGD-FU-O7h" secondAttribute="leading" constant="25" id="5HA-8A-821"/>
+                            <constraint firstItem="21z-Ud-pxL" firstAttribute="leading" secondItem="bGD-FU-O7h" secondAttribute="leading" constant="25" id="6Ao-Zn-dND"/>
+                            <constraint firstItem="e4x-24-Mda" firstAttribute="trailing" secondItem="6p8-x5-o2Z" secondAttribute="trailing" id="93Y-Jl-t9i"/>
+                            <constraint firstItem="e4x-24-Mda" firstAttribute="top" secondItem="6p8-x5-o2Z" secondAttribute="bottom" constant="25" id="CSL-0f-rjy"/>
+                            <constraint firstItem="bGD-FU-O7h" firstAttribute="trailing" secondItem="W5v-UK-7Dt" secondAttribute="trailing" constant="25" id="FCo-El-qz1"/>
+                            <constraint firstAttribute="trailing" secondItem="RSQ-Ek-ezb" secondAttribute="trailing" constant="25" id="HEN-8P-O8E"/>
+                            <constraint firstItem="ACw-k2-mtv" firstAttribute="top" secondItem="bGD-FU-O7h" secondAttribute="top" constant="60" id="Mhc-Lo-MqA"/>
+                            <constraint firstItem="6p8-x5-o2Z" firstAttribute="top" secondItem="ACw-k2-mtv" secondAttribute="bottom" constant="60" id="c5L-YW-DDM"/>
+                            <constraint firstItem="e4x-24-Mda" firstAttribute="leading" secondItem="6p8-x5-o2Z" secondAttribute="leading" id="e4s-53-yrI"/>
+                            <constraint firstItem="RSQ-Ek-ezb" firstAttribute="top" secondItem="W5v-UK-7Dt" secondAttribute="bottom" constant="50" id="i4T-Oh-CuT"/>
+                            <constraint firstAttribute="trailing" secondItem="6p8-x5-o2Z" secondAttribute="trailing" constant="25" id="klP-iV-7ov"/>
+                            <constraint firstItem="RSQ-Ek-ezb" firstAttribute="leading" secondItem="bGD-FU-O7h" secondAttribute="leading" constant="25" id="pE5-Lf-xCA"/>
+                            <constraint firstItem="bGD-FU-O7h" firstAttribute="trailing" secondItem="ACw-k2-mtv" secondAttribute="trailing" constant="25" id="t43-Ci-jYo"/>
+                            <constraint firstItem="ACw-k2-mtv" firstAttribute="leading" secondItem="bGD-FU-O7h" secondAttribute="leading" constant="25" id="up6-Y1-mNL"/>
+                            <constraint firstItem="W5v-UK-7Dt" firstAttribute="leading" secondItem="bGD-FU-O7h" secondAttribute="leading" constant="25" id="xaS-ab-c0S"/>
+                            <constraint firstItem="W5v-UK-7Dt" firstAttribute="top" secondItem="e4x-24-Mda" secondAttribute="bottom" constant="50" id="yGo-PB-swv"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="password" destination="e4x-24-Mda" id="QBq-Le-6UU"/>
+                        <outlet property="passwordInvalidLabel" destination="RSQ-Ek-ezb" id="Zbs-5y-7gA"/>
+                        <outlet property="username" destination="6p8-x5-o2Z" id="82I-np-r2d"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="uNf-od-3Hq" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-1530" y="147"/>
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>

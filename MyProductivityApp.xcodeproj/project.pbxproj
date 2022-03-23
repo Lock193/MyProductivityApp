@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		AD326C3A27E26AC300B0C4C8 /* MenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD326C3927E26AC300B0C4C8 /* MenuViewController.swift */; };
+		AD42A81E27EAF0B800CFABEE /* LoginController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD42A81D27EAF0B800CFABEE /* LoginController.swift */; };
 		AD4AA1E727E5406800B0D51E /* NetworkingAPIFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD4AA1E627E5406800B0D51E /* NetworkingAPIFunctions.swift */; };
 		AD4AA1EB27E5410500B0D51E /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = AD4AA1EA27E5410500B0D51E /* Alamofire */; };
 		AD4AA1EE27E5428100B0D51E /* NotePrototypeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD4AA1ED27E5428100B0D51E /* NotePrototypeCell.swift */; };
@@ -24,6 +25,7 @@
 
 /* Begin PBXFileReference section */
 		AD326C3927E26AC300B0C4C8 /* MenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuViewController.swift; sourceTree = "<group>"; };
+		AD42A81D27EAF0B800CFABEE /* LoginController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginController.swift; sourceTree = "<group>"; };
 		AD4AA1E627E5406800B0D51E /* NetworkingAPIFunctions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkingAPIFunctions.swift; sourceTree = "<group>"; };
 		AD4AA1ED27E5428100B0D51E /* NotePrototypeCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotePrototypeCell.swift; sourceTree = "<group>"; };
 		AD9A52B027E61EC5000BD372 /* MainEntryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainEntryViewController.swift; sourceTree = "<group>"; };
@@ -75,6 +77,7 @@
 				ADE26BB727E2626C00D8ECAC /* ViewController.swift */,
 				AD4AA1ED27E5428100B0D51E /* NotePrototypeCell.swift */,
 				ADE26BB927E2626C00D8ECAC /* Main.storyboard */,
+				AD42A81D27EAF0B800CFABEE /* LoginController.swift */,
 				AD9A52B027E61EC5000BD372 /* MainEntryViewController.swift */,
 				ADB22A7527E5E84900375DA2 /* AddNoteViewController.swift */,
 				ADB22A7827E5FB3700375DA2 /* DataManager.swift */,
@@ -172,6 +175,7 @@
 				ADE26BB627E2626C00D8ECAC /* SceneDelegate.swift in Sources */,
 				AD4AA1EE27E5428100B0D51E /* NotePrototypeCell.swift in Sources */,
 				AD326C3A27E26AC300B0C4C8 /* MenuViewController.swift in Sources */,
+				AD42A81E27EAF0B800CFABEE /* LoginController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

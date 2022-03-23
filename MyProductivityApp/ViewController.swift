@@ -16,7 +16,18 @@ class ViewController: UIViewController,UITableViewDelegate, UITableViewDataSourc
     @IBOutlet weak var addNoteButton: UIButton!
     @IBOutlet weak var menuButton: UIButton!
     
+    public func loginRequired(){
+        DataManager.viewController!.present(DataManager.loginController!, animated: true, completion: nil)
+    }
+    
     override func viewWillAppear(_ animated: Bool) {
+        if DataManager.loginController == nil {
+            let story = UIStoryboard(name: "Main", bundle: nil)
+            let controller = story.instantiateViewController(identifier: "LoginController") as! LoginController
+            controller.modalPresentationStyle = UIModalPresentationStyle.overFullScreen
+            DataManager.loginController = controller
+            self.present(controller, animated: true, completion: nil)
+        }
         NetworkingAPIFunctions.functions.fetchNotes()
         DataManager.folderClassLabel = self.folderClassLabel
     }
