@@ -16,6 +16,7 @@ class DataManager {
     static var navigationController:MainEntryViewController? = nil
     static var loginController:LoginController? = nil
     static var folderClass = 1
+    static var userId = "0"
     static var notesArray = [Note]()
     static var tempArray = [Note]()
     

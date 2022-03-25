@@ -47,7 +47,7 @@ class MenuViewController: UIViewController {
         print("class 1")
         DataManager.folderClass = 1
         DataManager.folderClassLabel.text = "Do today"
-        NetworkingAPIFunctions.functions.fetchNotes()
+        NetworkingAPIFunctions.functions.fetchNotes(userId: DataManager.userId)
         self.delegate!.hideMenu()
     }
     
@@ -55,7 +55,7 @@ class MenuViewController: UIViewController {
         print("class 2")
         DataManager.folderClass = 2
         DataManager.folderClassLabel.text = "Do this week"
-        NetworkingAPIFunctions.functions.fetchNotes()
+        NetworkingAPIFunctions.functions.fetchNotes(userId: DataManager.userId)
         self.delegate!.hideMenu()
         
     }
@@ -65,7 +65,7 @@ class MenuViewController: UIViewController {
         print("class 3")
         DataManager.folderClass = 3
         DataManager.folderClassLabel.text = "Others"
-        NetworkingAPIFunctions.functions.fetchNotes()
+        NetworkingAPIFunctions.functions.fetchNotes(userId: DataManager.userId)
         self.delegate!.hideMenu()
         
     }

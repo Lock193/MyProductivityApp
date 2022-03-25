@@ -34,21 +34,23 @@ class NetworkingAPIFunctions{
                 LoginController.serverUnavailable()
             } else {
                 data = String(data: responce.data!, encoding: .utf8)!
-                if data=="OK" {
+                if data != "Failed" {
+                    //Password correct, assign unique user id
+                    DataManager.userId = String(data.dropFirst(1).dropLast(1))
                     LoginController.passwordCorrect()
                 } else {
                     LoginController.passwordIncorrect()
                 }
-            
-            }
                 
+            }
+            
         }
         
     }
     
     // Fetches notes from database
-    func fetchNotes() {
-        AF.request("http://192.168.86.250:8081/fetch", method: .post, encoding:URLEncoding.httpBody).responseString{
+    func fetchNotes(userId:String) {
+        AF.request("http://192.168.86.250:8081/fetch", method: .post, encoding:URLEncoding.httpBody, headers:["user_id":userId]).responseString{
             responce in
             let data = String(data: responce.data!, encoding: .utf8)
             print(responce.data)
@@ -59,8 +61,8 @@ class NetworkingAPIFunctions{
     }
     
     // Adds a note to the server, passing the arguments as headers
-    func AddNote(date:String, title:String, note:String, folder:String){
-        AF.request("http://192.168.86.250:8081/create", method: .post, encoding: URLEncoding.httpBody, headers: ["title":title, "date":date, "note":note, "folder":folder]).responseString{
+    func AddNote(date:String, title:String, note:String, folder:String, userId:String){
+        AF.request("http://192.168.86.250:8081/create", method: .post, encoding: URLEncoding.httpBody, headers: ["title":title, "date":date, "note":note, "folder":folder, "user_id":userId]).responseString{
             responce in
             
             print(responce)
@@ -69,16 +71,16 @@ class NetworkingAPIFunctions{
     }
     
     // Updates a note to the server, passing the arguments as headers
-    func updateNote(date:String, title:String, note:String, id:String, folder:String){
-        AF.request("http://192.168.86.250:8081/update", method:.post, encoding: URLEncoding.httpBody, headers: ["title":title, "date":date, "note":note, "id":id, "folder":folder]).responseString{
+    func updateNote(date:String, title:String, note:String, id:String, folder:String, userId:String){
+        AF.request("http://192.168.86.250:8081/update", method:.post, encoding: URLEncoding.httpBody, headers: ["title":title, "date":date, "note":note, "id":id, "folder":folder, "user_id":userId]).responseString{
             responce in
             print(responce)
         }
     }
     
     // Deletes a note to the server, passing the note id as header
-    func deleteNote(id:String){
-        AF.request("http://192.168.86.250:8081/delete", method:.post, encoding: URLEncoding.httpBody, headers: ["id":id]).responseString{
+    func deleteNote(id:String, userId:String){
+        AF.request("http://192.168.86.250:8081/delete", method:.post, encoding: URLEncoding.httpBody, headers: ["id":id, "user_id":userId]).responseString{
             responce in
             print(responce)
         }

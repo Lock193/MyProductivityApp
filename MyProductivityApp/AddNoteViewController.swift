@@ -22,7 +22,7 @@ class AddNoteViewController: UIViewController {
     //MARK: - Note functions
     @IBAction func deleteButtonClick(_ sender: Any) {
         print("CLICKEDdeleted")
-        NetworkingAPIFunctions.functions.deleteNote(id: note!._id)
+        NetworkingAPIFunctions.functions.deleteNote(id: note!._id, userId: DataManager.userId)
         //returns the screen back to the main screen
         self.navigationController?.popViewController(animated: true)
     }
@@ -37,11 +37,11 @@ class AddNoteViewController: UIViewController {
         
         //if the user is updating, update the note rather than saving
         if update == true {
-            NetworkingAPIFunctions.functions.updateNote(date: date, title: titleTextField.text!, note: bodyTextView.text, id: note!._id, folder: String(DataManager.folderClass))
+            NetworkingAPIFunctions.functions.updateNote(date: date, title: titleTextField.text!, note: bodyTextView.text, id: note!._id, folder: String(DataManager.folderClass), userId: DataManager.userId)
             //returns the screen back to the main screen
             self.navigationController?.popViewController(animated: true)
         } else if titleTextField.text != "" && bodyTextView.text != "" {
-            NetworkingAPIFunctions.functions.AddNote(date: date, title: titleTextField.text!, note: bodyTextView.text, folder: String(DataManager.folderClass))
+            NetworkingAPIFunctions.functions.AddNote(date: date, title: titleTextField.text!, note: bodyTextView.text, folder: String(DataManager.folderClass), userId: DataManager.userId)
             
             //returns the screen back to the main screen
             self.navigationController?.popViewController(animated: true)

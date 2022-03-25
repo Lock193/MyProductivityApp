@@ -30,38 +30,33 @@ class ViewController: UIViewController,UITableViewDelegate, UITableViewDataSourc
     
     //MARK: - View functions
     override func viewWillAppear(_ animated: Bool) {
+        
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
         if DataManager.loginController == nil {
             let story = UIStoryboard(name: "Main", bundle: nil)
             let controller = story.instantiateViewController(identifier: "LoginController") as! LoginController
             controller.modalPresentationStyle = UIModalPresentationStyle.overFullScreen
             DataManager.loginController = controller
             self.present(controller, animated: true, completion: nil)
+        } else {
+            NetworkingAPIFunctions.functions.fetchNotes(userId: DataManager.userId)
         }
-        //NetworkingAPIFunctions.functions.fetchNotes()
-        DataManager.folderClassLabel = self.folderClassLabel
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        //self.notesTableView.register(NotePrototypeCell.self, forCellReuseIdentifier: "prototypeCell")
-        //self.notesTableView.register(UINib(nibName: "prototypeCell", bundle: nil), forCellReuseIdentifier: "prototypeCell")
-        //NetworkingAPIFunctions.functions.fetchNotes()
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        //self.notesTableView.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
         DataManager.viewController = self
         alpha = self.mainBackView.alpha
         NetworkingAPIFunctions.functions.delegate = self
-        //NetworkingAPIFunctions.functions.fetchNotes()
         
         notesTableView.delegate = self
         notesTableView.dataSource = self
         menuButton.setPreferredSymbolConfiguration(UIImage.SymbolConfiguration(pointSize: 30), forImageIn: .normal)
         addNoteButton.setPreferredSymbolConfiguration(UIImage.SymbolConfiguration(pointSize: 30), forImageIn: .normal)
         self.view.layoutIfNeeded()
-        // Do any additional setup after loading the view.
-        //backViewForExit.isHidden = true
+        DataManager.folderClassLabel = self.folderClassLabel
         
     }
     

@@ -25,7 +25,7 @@ class LoginController: UIViewController {
         DataManager.loginController!.username.text = ""
         DataManager.loginController!.password.text = ""
         DataManager.loginController!.dismiss(animated:true, completion: nil)
-        NetworkingAPIFunctions.functions.fetchNotes()
+        NetworkingAPIFunctions.functions.fetchNotes(userId: DataManager.userId)
         DataManager.viewController!.view.layoutIfNeeded()
     }
     
