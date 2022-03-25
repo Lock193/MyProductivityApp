@@ -3,8 +3,7 @@ const express = require('express')
 const mongoose = require('mongoose')
 var app = express()
 var Data = require('./noteSchema')
-var Login =require('./loginSchema') 
-var loginSuccessful = true
+var Login =require('./loginSchema')
 
 mongoose.connect("mongodb://localhost/newDB")
 
@@ -26,7 +25,7 @@ app.post("/login", (req,res) => {
             res.send("Failed")
         }
         else{
-            res.send("OK")
+            res.send(obj._id)
         }
     });
     /*Login.findOne({
@@ -50,7 +49,8 @@ app.post("/create", (req,res) => {
         note: req.get("note"),
         title: req.get("title"),
         date: req.get("date"),
-        folder: req.get("folder")
+        folder: req.get("folder"),
+        user_id: req.get("user_id")
     })
 
     note.save().then(() => {
@@ -76,7 +76,9 @@ var server = app.listen(8081, "192.168.86.250", () => {
 //FETCH ALL NOTES
 //GET request
 app.post("/fetch", (req,res) => {
-    Data.find({}, function (err, obj) {
+    Data.find({
+        user_id: req.get("user_id")
+    }, function (err, obj) {
         if (err || obj==null){
             res.send("Failed")
         }
@@ -91,7 +93,8 @@ app.post("/fetch", (req,res) => {
 app.post("/delete", (req,res) => {
     console.log("id:" + req.get("id"))
     Data.findOneAndRemove({
-        _id: req.get("id")
+        _id: req.get("id"),
+        user_id: req.get("user_id")
     }, (err) => {
         console.log("Failed " + err)
     })
@@ -103,12 +106,14 @@ app.post("/delete", (req,res) => {
 //POST request
 app.post('/update', (req,res) => {
     Data.findOneAndUpdate({
-        _id: req.get("id")
+        _id: req.get("id"),
+        user_id: req.get("user_id")
     }, {
         note: req.get("note"),
         title: req.get("title"),
         date: req.get("date"),
-        folder: req.get("folder")
+        folder: req.get("folder"),
+        user_id: req.get("user_id")
     }, (err) => {
         console.log("Failed to update " + err)
     })

@@ -6,7 +6,8 @@ var note = new Schema({
     title: String,
     date: String,
     note: String,
-    folder: String
+    folder: String,
+    user_id: String
 
 })
 
